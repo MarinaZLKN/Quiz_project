@@ -32,7 +32,7 @@ const questions = [
     },
 ];
 
-// finding the header's element by id
+// finding the quiz-header's element by id
 const headerContainer =document.querySelector('#header'); // wrapper for title
 const listContainer = document.querySelector('#list'); // wrapper for answers
 const submitBtn = document.querySelector('#submit') // button Submit
@@ -49,6 +49,9 @@ let questionIndex = 0; //current question
 
 clearPage();
 showQuestion();
+//check answers button
+submitBtn.onclick = checkAnswer();
+// submitBtn.addEventListener('click', checkAnswer);
 
 //rendering the question with all possible answers
 function showQuestion () {
@@ -80,3 +83,12 @@ function showQuestion () {
         //listContainer.innerHTML += answerHTML; -> better syntax
     }
 }
+
+function checkAnswer () {
+    console.log('ready');
+    // finding the input that has been chosen
+    const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
+    console.log(checkedRadio)
+    console.log('test');
+}
+
