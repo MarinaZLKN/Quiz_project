@@ -50,7 +50,7 @@ let questionIndex = 0; //current question
 clearPage();
 showQuestion();
 //check answers button
-submitBtn.onclick = checkAnswer();
+submitBtn.onclick = checkAnswer;
 // submitBtn.addEventListener('click', checkAnswer);
 
 //rendering the question with all possible answers
