@@ -133,10 +133,42 @@ function checkAnswer () {
     }
 
 }
-
+//rendering the results
 function showResults (){
-    console.log('ShowResults started');
-    console.log(score);
+    //template for render
+    const resultsTemplate = `
+            <h2 class="title">%title%</h2>
+            <h3 class="summary">%message%</h3>
+            <p class="result">%result%</p>
+        `;
 
-    const resultsTemplate =``
+    let title, message;
+    //checkig the results
+    if (score === questions.length) {
+        title = 'Поздравляем!';
+        message = 'Вы ответили правильно на все вопросы!';
+
+    } else if (score * 100 /questions.length >= 50) {
+        title = 'Неплохой результат!!';
+        message = 'Вы дали более половины правильных оветов!';
+    } else {
+        title = 'Стоит постараться!';
+        message = 'Пока у вас меньше половины правильных ответов!';
+    }
+
+    //the result
+    let result = `${score} из ${questions.length}`;
+    //final message to render
+    const finalMessage = resultsTemplate
+        .replace('%title%', title)
+        .replace('%message%', message)
+        .replace('%result%', result);
+    //Inserting the final message into to box
+    headerContainer.innerHTML = finalMessage;
+    submitBtn.blur() //снимаем с кнопки активное состояние
+    //new message for the button
+    submitBtn.innerHTML = 'Начать заново?';
+    //reloading the quiz
+    submitBtn.onclick = () => history.go();
+
 }
