@@ -65,22 +65,36 @@ function showQuestion () {
     headerContainer.innerHTML = title;
 
     //Answers
+
+    //переменная для проверки истинности ответа
+    let answerNumber = 1;
     // iterring all the answers
     for( let answerText of questions[questionIndex]['answers']){
+        console.log(answerNumber, answerText)
         //the html piece for the answers
         const questionTemplate =
             `<li>
                 <label>
-                    <input type="radio" name="answer" class="answer">
+                    <input value="%number%" type="radio" name="answer" class="answer">
                     <span>%answer%</span>
                 </label>
             </li>`;
 
-        //replacing temporary symbol with real answer values
-        const answerHTML = questionTemplate.replace('%answer%', answerText);
+        //replacing temporary symbol in span with real answer values,so we can see them in question box
+        //let answerHTML = questionTemplate.replace('%answer%', answerText);
+        //changing the value of number - here were adding the flag for answer from 1 to 4
+        //answerHTML = answerHTML.replace('%number%', answerNumber);
+        //better syntax:
+        const answerHTML = questionTemplate
+            .replace('%answer%', answerText)
+            .replace('%number%', answerNumber);
+
+
+
         // to show all 4 answers, not only 1
         listContainer.innerHTML = listContainer.innerHTML + answerHTML;
         //listContainer.innerHTML += answerHTML; -> better syntax
+        answerNumber++;
     }
 }
 
@@ -88,7 +102,13 @@ function checkAnswer () {
     console.log('ready');
     // finding the input that has been chosen
     const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
-    console.log(checkedRadio)
-    console.log('test');
+    console.log(checkedRadio);
+
+    //here we check if any of answers was chosen
+    // if not
+    if(!checkedRadio){
+        submitBtn.blur();
+        return  //function just finishes its work(will be null)
+    }
 }
 
