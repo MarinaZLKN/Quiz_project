@@ -70,7 +70,6 @@ function showQuestion () {
     let answerNumber = 1;
     // iterring all the answers
     for( let answerText of questions[questionIndex]['answers']){
-        console.log(answerNumber, answerText)
         //the html piece for the answers
         const questionTemplate =
             `<li>
@@ -99,10 +98,8 @@ function showQuestion () {
 }
 
 function checkAnswer () {
-    console.log('ready');
     // finding the input that has been chosen
     const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
-    console.log(checkedRadio);
 
     //here we check if any of answers was chosen
     // if not
@@ -110,5 +107,36 @@ function checkAnswer () {
         submitBtn.blur();
         return  //function just finishes its work(will be null)
     }
+
+    //here we hold the value of chosen answer
+    const userAnswer = parseInt(checkedRadio.value); //parseInt -> to make a number(by default it is a string)
+    console.log(userAnswer)
+
+    // checking if answer is correct then score +1
+    if (userAnswer === questions[questionIndex]['correct']){
+        score ++;
+    }
+    //if current question is not last:
+    if(questionIndex !== questions.length - 1){
+        //act this way:
+        console.log(' not last')
+        questionIndex++;
+        clearPage();
+        showQuestion();
+        return;
+    } else {
+        //if last, then this way:
+        console.log('last')
+        clearPage();
+        showResults();
+
+    }
+
 }
 
+function showResults (){
+    console.log('ShowResults started');
+    console.log(score);
+
+    const resultsTemplate =``
+}
